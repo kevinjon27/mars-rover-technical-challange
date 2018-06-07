@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Mars Rover Challange</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	</head>
+	<body style="padding-top: 50px">
+		<div class="container mars-rover">
+			<div>
+				<div class="row">
+					<div class="col-md-8">
+						<!-- Set Plateau -->
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<label><b>Set Plateau</b></label>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								    <label>Set X </label>
+								    <input type="text" class="form-control" placeholder="5" v-model="plateauX" min="1" max="10" v-on:keypress="isNumber">
+								    <small class="text-muted">
+								      Min: 1, Max: 10
+								    </small>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								    <label>Set Y </label>
+								    <input type="text" class="form-control" placeholder="5" v-model="plateauY" min="1" max="10" v-on:keypress="isNumber">
+								    <small class="text-muted">
+								      Min: 1, Max: 10
+								    </small>
+								</div>
+							</div>
+						</div>
+						<!-- Set Rover Direction -->
+						<div class="row" v-show="plateauX != '' && plateauY != ''">
+							<div class="col-md-12 text-center">
+								<label><b>Set Rover Direction</b></label>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+								    <label>Set X </label>
+								    <select class="custom-select" v-model="roverX">
+									  <option v-for="x in range(1, plateauX)" v-bind:value="x">{{ x }}</option>
+									</select>
+									<small class="text-muted">
+								      Min: 1, Max: {{ plateauX }}
+								    </small>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+								    <label>Set Y </label>
+								    <select class="custom-select" v-model="roverY">
+									  <option v-for="y in range(1, plateauY)" v-bind:value="y">{{ y }}</option>
+									</select>
+									<small class="text-muted">
+								      Min: 1, Max: {{ plateauY }}
+								    </small>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+								    <label>Set Direction</label>
+								    <select class="custom-select" v-model="roverDir">
+									  <option value="N">N</option>
+									  <option value="E">E</option>
+									  <option value="W">W</option>
+									  <option value="S">S</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- Set Control -->
+						<div class="row"  v-show="(roverX != '' && roverY != '' && roverDir != '') && (plateauX != '' && plateauY != '')">
+							<div class="col-md-12 text-center">
+								<label><b>Set Control</b></label>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+								    <label>Control </label>
+								    <input type="text" class="form-control" placeholder="LMLMMR" v-model="control" v-on:keypress="isMap">
+								    <small class="text-muted">
+								      Note: L = LEFT, R = RIGHT, M = MOVE FORWARD
+								    </small>
+								</div>
+							</div>
+						</div>
+
+						<!-- UPDATE -->
+						<div class="row"  v-show="(roverX != '' && roverY != '' && roverDir != '') && (plateauX != '' && plateauY != '')">
+							<div class="col-md-12">
+								<div class="form-group">
+									<button class="btn btn-primary btn-block" v-on:click="result"> UPDATE RESULT</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<h3>LOG</h3>
+						<ul class="list-group">
+						  <li class="list-group-item">Plateau: ({{ plateauX ? plateauX : 0 }}, {{ plateauY ? plateauY : 0 }})</li>
+						  <li class="list-group-item">Rover Direction: ({{ roverX ? roverX : 0 }}, {{ roverY ? roverY : 0 }}) {{ roverDir.toUpperCase() ? roverDir : '-' }}</li>
+						  <li class="list-group-item">Control: {{ control ? control.toUpperCase() : '-' }}</li>
+						  <li class="list-group-item">Result: {{ resultX ? resultX : 0 }}, {{ resultY ? resultY : 0 }} {{ resultDir ? resultDir : '-' }}</li>
+						</ul>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script type="text/javascript" src="./assets/js/mars.js"></script>
+</html>
